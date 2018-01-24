@@ -127,16 +127,6 @@
         <div class="alert alert-danger" *ngIf="formError != undefined">
           {{formError}}
         </div>
-        <!-- valid{{form.valid}}
-        <br/> invalid{{form.invalid}}
-        <br/> -->
-        <p>Form value: {{ form.value | json }}</p>
-        <p>Form status: {{ form.status | json }}</p>
-        {{form.errors | json}}
-
-        <p>Day: {{selectedDay}}</p>
-        <p>Mon: {{selectedMonth}}</p>
-        <p>Year: {{selectedYear}}</p>
       </form>
     </div>
   </div>
@@ -144,7 +134,3 @@
 <div class="loading" *ngIf="showLoader">
     <div class="loader"></div>
 </div>
-
-<!-- {{ days | json }}
-{{ months | json }}
-{{ years | json }} -->
