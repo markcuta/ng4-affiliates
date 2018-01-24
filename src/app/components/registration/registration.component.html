@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="row main">
+    <div class="main-register main-center">
+      <h1 class="title">Register to access our platform!</h1>
+      <hr/>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Gender -->
+        <div class="form-group">
+          <label for="name" class="control-label">Gender
+            <span class="text-danger">*</span>
+          </label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" formControlName="gender" value="1" type="radio" name="gender" id="radioMale">
+              <label class="form-check-label" for="radioMale">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" formControlName="gender" value="2" type="radio" name="gender" id="radioFemale">
+              <label class="form-check-label" for="radioFemale">Female</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name" class="control-label">Name
+            <span class="text-danger">*</span>
+          </label>
+          <div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-user fa" aria-hidden="true"></i>
+              </span>
+              <input type="text" formControlName="name" class="form-control" name="name" placeholder="Enter your Name" />
+            </div>
+            <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+              <div *ngIf="name.errors.required">Name is required</div>
+              <div *ngIf="name.errors.pattern">Name can have only letters</div>
+              <div *ngIf="name.errors.minlength">Minimum 2 characters</div>
+              <div *ngIf="name.errors.maxlength">Maximum 30 characters</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="control-label">Email
+            <span class="text-danger">*</span>
+          </label>
+          <div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </span>
+              <input type="text" formControlName="email" class="form-control" name="email" placeholder="Enter your Email" />
+            </div>
+            <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+              <div *ngIf="email.errors.email">Email is invalid</div>
+              <div *ngIf="email.errors.alreadyTaken">Email already taken!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password" class="control-label">Password
+            <span class="text-danger">*</span>
+          </label>
+          <div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+              </span>
+              <input type="password" formControlName="password" class="form-control" name="password" placeholder="Enter your Password"
+              />
+            </div>
+            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+              <div *ngIf="password.errors.required">Password is required</div>
+              <div *ngIf="password.errors.pattern">Only alphanumeric characters allowed</div>
+              <div *ngIf="password.errors.minlength">Minimum 5 characters</div>
+              <div *ngIf="password.errors.maxlength">Maximum 35 characters</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Birthdate -->
+        <div class="form-group">
+          <label for="confirm" class="control-label">Birthdate
+            <span class="text-danger">*</span>
+          </label>
+          <div>
+            <div class="input-group" formGroupName="dob">
+              <span class="input-group-addon">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+              <!-- Day -->
+              <select class="custom-select" formControlName="day">
+                <option disabled selected value="0">Day</option>
+                <option *ngFor="let day of days" [value]="day">{{day}}</option>
+              </select>
+
+              <!-- Month -->
+              <select class="custom-select" formControlName="month">
+                <option disabled selected value="0">Month</option>
+                <option *ngFor="let mon of months; let i = index" [value]="i+1">{{mon}}</option>
+              </select>
+
+              <!-- Year -->
+              <select class="custom-select" formControlName="year">
+                <option disabled selected value="0">Year</option>
+                <option *ngFor="let year of years" [value]="year">{{year}}</option>
+              </select>
+            </div>
+            <div *ngIf="dob.touched && dob.invalid" class="alert alert-danger">
+              <div *ngIf="dob.errors?.notOfAge"> You must be 18+</div>
+              <div *ngIf="dob.errors?.nonZero">Birthdate is required</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group ">
+          <button type="submit" [disabled]="!form.valid" id="button" class="btn btn-primary btn-lg btn-block login-button">
+            Register
+          </button>
+        </div>
+        <div class="alert alert-danger" *ngIf="formError != undefined">
+          {{formError}}
+        </div>
+        <!-- valid{{form.valid}}
+        <br/> invalid{{form.invalid}}
+        <br/> -->
+        <p>Form value: {{ form.value | json }}</p>
+        <p>Form status: {{ form.status | json }}</p>
+        {{form.errors | json}}
+
+        <p>Day: {{selectedDay}}</p>
+        <p>Mon: {{selectedMonth}}</p>
+        <p>Year: {{selectedYear}}</p>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="loading" *ngIf="showLoader">
+    <div class="loader"></div>
+</div>
+
+<!-- {{ days | json }}
+{{ months | json }}
+{{ years | json }} -->
